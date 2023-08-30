@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Taskman{% endblock %}
+
+{% block content %}
+<br>
+<div class="text-center">
+
+
+    {% for task in tasks %}
+        <div>
+            {% if task.completed %}
+                <strike>{{task}}</strike>
+            {% else %}
+                <span>{{task}}</span>
+            {% endif %}
+
+            <a href="{% url 'update' task.id %}" class="btn btn-sm btn-outline-success">Update</a>
+            <a href="{% url 'deleted' task.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+        </div>
+    {% endfor %}
+    
+    <br>
+    <form method="post" action=".">
+        {% csrf_token %}
+        
+        {{form.title}}
+        <input type="submit" class="btn btn-info">
+    </form>
+</div> 
+{% endblock %}
